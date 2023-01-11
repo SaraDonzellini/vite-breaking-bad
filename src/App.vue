@@ -3,7 +3,10 @@ import AppMain from './components/AppMain.vue'
 </script>
 
 <template>
-  <AppMain />
+  <main>
+    <AppMain />
+
+  </main>
 </template>
 
 <style scoped>
