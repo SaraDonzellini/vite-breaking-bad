@@ -16,7 +16,7 @@ export default {
         // }
       })
         .then((response) => {
-          console.log(response.data.data);
+          // console.log(response.data.data);
           this.store.cardList = response.data.data;
         })
         .catch(function (error) {
@@ -41,18 +41,31 @@ export default {
     </div>
   </section>
   <section class="container">
-    <div class="row">
-      <div class="col-6">
-        <p v-for="card in store.cardList">
-        <img :src="card.card_images" :alt="card.name">
-          {{ card.name }} {{ card.card_images }}
-
-        </p>
+    <div class="row d-flex flex-wrap ">
+      <div class="col-12">
+        <div class="card box m-2" v-for="card in store.cardList">
+          <img v-for="child in card.card_images" :src="child.image_url" :alt="card.name">
+          <div>
+            <h5 class="card-title">{{ card.name }}</h5>
+            <p class="card-text">{{ card.type }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <style lang="scss">
+.box {
+  width: 28rem;
+  display: flex;
+  // flex-direction: column;
+  flex-wrap: wrap;
+  color: black;
+  
 
+  img {
+    height: 100%;
+  }
+}
 </style>
