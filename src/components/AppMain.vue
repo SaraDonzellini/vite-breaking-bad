@@ -1,12 +1,17 @@
 <script>
 import { store } from '../store.js'
 import axios from "axios";
+import AppLoader from './AppLoader.vue'
 
 export default {
   name: 'AppMain',
+  components: {
+    AppLoader,
+  },
   data() {
     return {
       store,
+      isLoading : true,
     }
   },
   methods: {
@@ -22,10 +27,18 @@ export default {
         .catch(function (error) {
           console.log(error);
         })
+    },
+
+    stopLoader(){
+      this.isLoading = false
     }
   },
   created() {
     this.getCards();
+
+    setTimeout(() => {
+      this.stopLoader
+    }, 1500);
   },
 }
 </script>
@@ -41,12 +54,13 @@ export default {
     </div>
   </section>
   <section class="container">
-    <div class="row d-flex flex-wrap ">
+    <div class="row">
       <div class="col-12">
-        <div class="card box m-2" v-for="card in store.cardList">
-          <img v-for="child in card.card_images" :src="child.image_url" :alt="card.name">
+        <AppLoader v-if="store.cardList.length === 0"/>
+        <div v-else class="card box m-2" v-for="card in store.cardList">
+          <img v-for="child in card.card_images" class="card-img-top" :src="child.image_url" :alt="card.name">
           <div>
-            <h5 class="card-title">{{ card.name }}</h5>
+            <h4 class="card-title">{{ card.name }}</h4>
             <p class="card-text">{{ card.type }}</p>
           </div>
         </div>
@@ -55,17 +69,17 @@ export default {
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .box {
-  width: 28rem;
+  width: calc(100% / 6);
   display: flex;
-  // flex-direction: column;
   flex-wrap: wrap;
   color: black;
-  
+  text-align: center;
 
   img {
     height: 100%;
+    width: 100%;
   }
 }
 </style>
