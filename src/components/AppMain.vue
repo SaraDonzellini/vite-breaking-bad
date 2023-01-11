@@ -54,10 +54,10 @@ export default {
     </div>
   </section>
   <section class="container">
-    <div class="row">
-      <div class="col-12">
-        <AppLoader v-if="store.cardList.length === 0"/>
-        <div v-else class="card box m-2" v-for="card in store.cardList">
+    <AppLoader v-if="store.cardList.length === 0"/>
+    <div v-else class="row">
+      <div class="col-4" v-for="card in store.cardList">
+        <div class="card my_box m-2">
           <img v-for="child in card.card_images" class="card-img-top" :src="child.image_url" :alt="card.name">
           <div>
             <h4 class="card-title">{{ card.name }}</h4>
@@ -70,14 +70,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.box {
-  width: calc(100% / 6);
+.my_box {
+  width: calc(100%);
   display: flex;
   flex-wrap: wrap;
   color: black;
   text-align: center;
 
-  img {
+  img .card-img-top {
     height: 100%;
     width: 100%;
   }
