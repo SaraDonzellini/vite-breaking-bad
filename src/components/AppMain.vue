@@ -40,7 +40,7 @@ export default {
     </div>
   </section>
   <section class="container">
-    <AppLoader v-if="store.cardList.length === 0"/>
+    <AppLoader v-if="store.cardList.length === 0" />
     <AppCards />
   </section>
 </template>

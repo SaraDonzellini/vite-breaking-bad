@@ -39,7 +39,7 @@ export default {
 
 <template>
   <section class="container">
-    <AppSelect @getCards="getCards(store.selectArchetype)"/>
+    <AppSelect @getCards="getCards(store.selectArchetype)" />
   </section>
   <div class="row">
     <div class="col-4" v-for="card in store.cardList">
