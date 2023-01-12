@@ -1,40 +1,28 @@
 <script>
 import { store } from '../store.js'
-import axios from "axios";
 import AppLoader from './AppLoader.vue'
+import AppCards from './AppCards.vue'
+// import AppSelect from './AppSelect.vue'
 
 export default {
   name: 'AppMain',
   components: {
     AppLoader,
+    AppCards,
+    // AppSelect,
   },
   data() {
     return {
       store,
-      isLoading : true,
+      isLoading: true,
     }
   },
   methods: {
-    getCards() {
-      axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0', {
-        // params: {
-        // }
-      })
-        .then((response) => {
-          // console.log(response.data.data);
-          this.store.cardList = response.data.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-    },
-
-    stopLoader(){
+    stopLoader() {
       this.isLoading = false
     }
   },
   created() {
-    this.getCards();
 
     setTimeout(() => {
       this.stopLoader
@@ -53,33 +41,15 @@ export default {
       </div>
     </div>
   </section>
+  <!-- <section class="container">
+    <AppSelect />
+  </section> -->
   <section class="container">
-    <AppLoader v-if="store.cardList.length === 0"/>
-    <div v-else class="row">
-      <div class="col-4" v-for="card in store.cardList">
-        <div class="card my_box m-2">
-          <img v-for="child in card.card_images" class="card-img-top" :src="child.image_url" :alt="card.name">
-          <div>
-            <h4 class="card-title">{{ card.name }}</h4>
-            <p class="card-text">{{ card.type }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- <AppLoader v-if="store.cardList.length === 0"/> -->
+    <AppCards />
   </section>
 </template>
 
 <style lang="scss" scoped>
-.my_box {
-  width: calc(100%);
-  display: flex;
-  flex-wrap: wrap;
-  color: black;
-  text-align: center;
 
-  img .card-img-top {
-    height: 100%;
-    width: 100%;
-  }
-}
 </style>
